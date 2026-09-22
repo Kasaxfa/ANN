@@ -1,0 +1,4 @@
+fields,errors,accuracy,delta_vs_baseline,best_mapping
+Gender + Physical Activity Level,751,0.8748333333333334,6,"Gender: Female=1, Male=0; Physical Activity Level: Low=0, Moderate=1, High=2; Weather: Cold=0, Normal=1, Hot=2"
+Gender + Weather,751,0.8748333333333334,6,"Gender: Female=1, Male=0; Physical Activity Level: Low=0, Moderate=1, High=2; Weather: Cold=0, Normal=1, Hot=2"
+Physical Activity Level + Weather,757,0.8738333333333334,0,"Gender: Female=0, Male=1; Physical Activity Level: Low=0, Moderate=1, High=2; Weather: Cold=0, Normal=1, Hot=2"
