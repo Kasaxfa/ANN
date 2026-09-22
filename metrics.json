@@ -1,0 +1,94 @@
+{
+  "dataset": {
+    "rows_before_cleaning": 30000,
+    "rows_after_cleaning": 29662,
+    "duplicates_removed": 338,
+    "missing_values_removed": 0,
+    "test_size": 0.2,
+    "random_state": 42,
+    "target_mapping": {
+      "Poor": 0,
+      "Good": 1
+    }
+  },
+  "feature_names": [
+    "Age",
+    "Weight (kg)",
+    "Daily Water Intake (liters)",
+    "Gender_Female",
+    "Gender_Male",
+    "Physical Activity Level_High",
+    "Physical Activity Level_Low",
+    "Physical Activity Level_Moderate",
+    "Weather_Cold",
+    "Weather_Hot",
+    "Weather_Normal"
+  ],
+  "target_mapping": {
+    "Poor": 0,
+    "Good": 1
+  },
+  "models": {
+    "ReLU_24": {
+      "best_epoch": 30,
+      "accuracy": 0.9954491825383448,
+      "precision": 0.9960058860626445,
+      "recall": 0.9983143699957859,
+      "f1": 0.9971587919604336,
+      "loss": 0.04000130854547024,
+      "activation": "ReLU",
+      "hidden_size": 24,
+      "confusion_matrix": [
+        [
+          1168,
+          19
+        ],
+        [
+          8,
+          4738
+        ]
+      ]
+    },
+    "Tanh_24": {
+      "best_epoch": 29,
+      "accuracy": 0.9974717680768582,
+      "precision": 0.9968494013862634,
+      "recall": 1.0,
+      "f1": 0.9984222152098454,
+      "loss": 0.03202132236522933,
+      "activation": "Tanh",
+      "hidden_size": 24,
+      "confusion_matrix": [
+        [
+          1172,
+          15
+        ],
+        [
+          0,
+          4746
+        ]
+      ]
+    },
+    "Tanh_10": {
+      "best_epoch": 30,
+      "accuracy": 0.995617731333221,
+      "precision": 0.996215306980656,
+      "recall": 0.9983143699957859,
+      "f1": 0.9972637339507472,
+      "loss": 0.04269252593318621,
+      "activation": "Tanh",
+      "hidden_size": 10,
+      "confusion_matrix": [
+        [
+          1169,
+          18
+        ],
+        [
+          8,
+          4738
+        ]
+      ]
+    }
+  },
+  "final_model": "Tanh_10"
+}
