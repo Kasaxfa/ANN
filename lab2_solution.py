@@ -78,7 +78,7 @@ def forward_numpy(x, w0, b0, w1, b1, weight_digits=None, pre_digits=None, activa
 
 def main() -> None:
     seed_everything()
-    raw = pd.read_csv(DATASET).dropna().drop_duplicates().reset_index(drop=True)
+    raw = pd.read_csv(DATASET, encoding="cp1251").dropna().drop_duplicates().reset_index(drop=True)
     y = raw["Hydration Level"].map({"Poor": 0, "Good": 1}).to_numpy(dtype=np.float32)
     x = pd.get_dummies(raw.drop(columns=["Hydration Level"]), dtype=np.float32)
     x = x.reindex(columns=FEATURES, fill_value=0).astype(np.float32)
