@@ -35,12 +35,17 @@ CORRELATION_PATH = ROOT / "correlation_matrix.csv"
 SEED = 42
 BATCH_SIZE = 256
 EPOCHS = 60
-FEATURES = [
+ALL_FEATURES = [
     "Age",
+    "Weight (kg)",
     "Daily Water Intake (liters)",
+    "Gender",
     "Physical Activity Level",
     "Weather",
 ]
+FEATURES = []
+FEATURE_CORRELATIONS: dict[str, float] = {}
+GENDER_CODES = {"Female": 0.0, "Male": 1.0}
 ACTIVITY_CODES = {"Low": 0.0, "Moderate": 1.0, "High": 2.0}
 WEATHER_CODES = {"Cold": 0.0, "Normal": 1.0, "Hot": 2.0}
 
@@ -79,12 +84,29 @@ class NeuralNetwork(nn.Module):
 
 
 def load_data() -> tuple[pd.DataFrame, pd.DataFrame, np.ndarray, np.ndarray, np.ndarray, np.ndarray, StandardScaler]:
+    global FEATURES, FEATURE_CORRELATIONS
+
     frame = pd.read_csv(DATASET).dropna().drop_duplicates().reset_index(drop=True)
     frame["target"] = frame["Hydration Level"].map({"Poor": 0, "Good": 1}).astype(int)
-    frame["Physical Activity Level"] = frame["Physical Activity Level"].map(ACTIVITY_CODES)
-    frame["Weather"] = frame["Weather"].map(WEATHER_CODES)
-    features = frame[FEATURES].astype(np.float32)
+    encoded_features = frame[ALL_FEATURES].copy()
+    encoded_features["Gender"] = encoded_features["Gender"].map(GENDER_CODES)
+    encoded_features["Physical Activity Level"] = encoded_features["Physical Activity Level"].map(ACTIVITY_CODES)
+    encoded_features["Weather"] = encoded_features["Weather"].map(WEATHER_CODES)
     targets = frame["target"].to_numpy(dtype=np.float32)
+
+    # Сначала строится корреляционная матрица по всем доступным признакам.
+    correlation_frame = encoded_features.copy()
+    correlation_frame["Target"] = targets
+    correlation = correlation_frame.corr()
+    correlation.to_csv(CORRELATION_PATH)
+    FEATURE_CORRELATIONS = correlation["Target"].drop("Target").to_dict()
+
+    # Затем выбираются четыре признака с наибольшей абсолютной корреляцией
+    # с целевым признаком; только они поступают на вход нейронной сети.
+    FEATURES = (
+        correlation["Target"].drop("Target").abs().sort_values(ascending=False).head(4).index.tolist()
+    )
+    features = encoded_features[FEATURES].astype(np.float32)
     x_train, x_test, y_train, y_test = train_test_split(
         features, targets, test_size=0.2, random_state=SEED, stratify=targets
     )
@@ -202,10 +224,6 @@ def main() -> None:
     save_3d_scene(ROOT / "water_variant17_tanh_3_neurons.html", "Вариант 17 — Tanh, 3 нейрона", activations, labels, predictions)
     save_3d_scene(ROOT / "water_variant17_tanh_3_neurons_plane_separator.html", "Вариант 17 — Tanh, 3 нейрона, разделяющая плоскость", activations, labels, predictions, (xx, yy, zz))
 
-    correlation_frame = encoded_features.copy()
-    correlation_frame["target"] = frame["target"].to_numpy()
-    correlation_frame.columns = ["Age", "Water", "Activity", "Weather", "Target"]
-    correlation_frame.corr().to_csv(CORRELATION_PATH)
     history_frame = pd.DataFrame(history)
     history_frame.to_csv(HISTORY_PATH, index=False)
     train_metrics = evaluate(model, train_loader, loss_fn, device)
@@ -213,8 +231,11 @@ def main() -> None:
     serializable = {key: value for key, value in test_metrics.items() if key not in {"labels", "predictions"}}
     metrics = {
         "variant": 17, "rows": len(frame), "train_rows": len(x_train), "test_rows": len(x_test),
-        "features": FEATURES, "activation": "Tanh", "hidden_neurons": 3,
-        "encoding": {"Hydration Level": {"Poor": 0, "Good": 1}, "Physical Activity Level": ACTIVITY_CODES, "Weather": WEATHER_CODES},
+        "candidate_features": ALL_FEATURES,
+        "features": FEATURES,
+        "feature_correlations_with_target": FEATURE_CORRELATIONS,
+        "activation": "Tanh", "hidden_neurons": 3,
+        "encoding": {"Hydration Level": {"Poor": 0, "Good": 1}, "Gender": GENDER_CODES, "Physical Activity Level": ACTIVITY_CODES, "Weather": WEATHER_CODES},
         "normalization_mean": scaler.mean_.tolist(), "normalization_std": scaler.scale_.tolist(),
         "plane_coefficients": [float(value) for value in coefficients] + [d],
         "train": {key: value for key, value in train_metrics.items() if key not in {"labels", "predictions"}},
