@@ -1,0 +1,47 @@
+{
+  "ReLU_baseline": {
+    "rows_checked": 5933,
+    "prediction_mismatches": 0,
+    "errors": 3,
+    "error_source_csv_rows": [
+      27305,
+      13769,
+      16388
+    ],
+    "max_logit_difference": 7.105427357601002e-14
+  },
+  "ReLU_tuned": {
+    "rows_checked": 5933,
+    "prediction_mismatches": 0,
+    "errors": 4,
+    "error_source_csv_rows": [
+      8436,
+      27305,
+      17353,
+      16778
+    ],
+    "max_logit_difference": 7.105427357601002e-14
+  },
+  "Tanh_baseline": {
+    "rows_checked": 5933,
+    "prediction_mismatches": 0,
+    "errors": 7,
+    "error_source_csv_rows": [
+      20184,
+      27305,
+      13769,
+      11283,
+      16388,
+      19047,
+      20149
+    ],
+    "max_logit_difference": 6.394884621840902e-14
+  },
+  "Tanh_tuned": {
+    "rows_checked": 5933,
+    "prediction_mismatches": 0,
+    "errors": 0,
+    "error_source_csv_rows": [],
+    "max_logit_difference": 6.394884621840902e-14
+  }
+}

@@ -1,0 +1,128 @@
+﻿[
+    {
+        "Page":  1,
+        "Characters":  473,
+        "Start":  "Министерство науки и высшего образования Российской Федерации \rФедеральное государственное бюджетное образоват",
+        "Pictures":  0
+    },
+    {
+        "Page":  2,
+        "Characters":  1462,
+        "Start":  "ВВЕДЕНИЕ\rВ задачах машинного обучения используются числовые и категориальные признаки. Способ цифрового предст",
+        "Pictures":  0
+    },
+    {
+        "Page":  3,
+        "Characters":  1170,
+        "Start":  "1. ПОСТАНОВКА ЗАДАЧИ\rРешается задача бинарной классификации уровня гидратации по данным варианта 17. Нулевая м",
+        "Pictures":  0
+    },
+    {
+        "Page":  4,
+        "Characters":  1497,
+        "Start":  "2. ОПИСАНИЕ ИСХОДНЫХ ДАННЫХ\r2.1. Структура датасета\rИсходный CSV-файл содержит 30000 строк и 7 столбцов. Строк",
+        "Pictures":  0
+    },
+    {
+        "Page":  5,
+        "Characters":  695,
+        "Start":  "Разбиение стратифицировано, random_state = 42. Вначале выделяется 20% тестовых данных, затем четверть оставшей",
+        "Pictures":  0
+    },
+    {
+        "Page":  6,
+        "Characters":  1289,
+        "Start":  "3. БАЗОВАЯ НЕЙРОННАЯ СЕТЬ\r3.1. Архитектура сети\rПостроены две модели с одинаковой структурой: три входа, скрыт",
+        "Pictures":  0
+    },
+    {
+        "Page":  7,
+        "Characters":  913,
+        "Start":  "3.3. Код модели (Python/PyTorch)\rclass WaterNet(nn.Module):\u000b    def __init__(self, activation):\u000b        super(",
+        "Pictures":  1
+    },
+    {
+        "Page":  8,
+        "Characters":  1713,
+        "Start":  "4. РЕАЛИЗАЦИЯ В EXCEL\r4.1. Структура файлов\rСоздана одна рабочая книга water_variant17_lab4_work.xlsx. В ней о",
+        "Pictures":  0
+    },
+    {
+        "Page":  9,
+        "Characters":  1156,
+        "Start":  "logit = SUMPRODUCT(h_1:h_10, output_weights) + output_bias\u000bprediction = IF(logit \u003e= 0, 1, 0)\u000berror = IF(predic",
+        "Pictures":  0
+    },
+    {
+        "Page":  10,
+        "Characters":  1565,
+        "Start":  "5. ПОДБОР КОЭФФИЦИЕНТОВ ДЛЯ ТРЁХ ПРИЗНАКОВ\r5.1. Методика\rДля пола задаются два коэффициента, для активности и ",
+        "Pictures":  0
+    },
+    {
+        "Page":  11,
+        "Characters":  981,
+        "Start":  "Weather\r\u0007Normal\r\u0007-0,015\r\u00070,000\r\u0007\r\u0007Weather\r\u0007Hot\r\u00070,000\r\u00070,000\r\u0007\r\u0007Для Tanh выбрана настройка только признака Gen",
+        "Pictures":  1
+    },
+    {
+        "Page":  12,
+        "Characters":  959,
+        "Start":  "5.3. Взаимовлияние категориальных столбцов\rТаблица 9 — Раздельный и совместный подбор\rИзменяемые признаки\r\u0007ReL",
+        "Pictures":  1
+    },
+    {
+        "Page":  13,
+        "Characters":  1107,
+        "Start":  "6. РЕЗУЛЬТАТЫ\r6.1. Метрики качества классификации\rAccuracy — доля правильных ответов. Precision — доля истинны",
+        "Pictures":  0
+    },
+    {
+        "Page":  14,
+        "Characters":  1031,
+        "Start":  "/\rРисунок 4 — Сравнение числа ошибок до и после подбора кодов\r6.3. Результаты на полном наборе данных\rТаблица ",
+        "Pictures":  1
+    },
+    {
+        "Page":  15,
+        "Characters":  766,
+        "Start":  "выдавать за результат выбора архитектуры на тестовых данных. В работе приведены обе заранее заданные архитекту",
+        "Pictures":  0
+    },
+    {
+        "Page":  16,
+        "Characters":  1575,
+        "Start":  "7. ЗАКЛЮЧЕНИЕ\rВ ходе курсового проекта разработана и исследована схема включения категориальных признаков в об",
+        "Pictures":  0
+    },
+    {
+        "Page":  17,
+        "Characters":  938,
+        "Start":  "СПИСОК ЛИТЕРАТУРЫ\r1. Goodfellow I., Bengio Y., Courville A. Deep Learning. MIT Press, 2016. https://www.deeple",
+        "Pictures":  0
+    },
+    {
+        "Page":  18,
+        "Characters":  2755,
+        "Start":  "ПРИЛОЖЕНИЯ\rПриложение А. Основной код расчёта\rФайл lab4_recalculation.py. Модуль формирования Excel — lab4_wor",
+        "Pictures":  0
+    },
+    {
+        "Page":  19,
+        "Characters":  3556,
+        "Start":  "for epoch in range(1, MAX_EPOCHS + 1):\r        model.train()\r        for bx, by in loader:\r            opt.zer",
+        "Pictures":  0
+    },
+    {
+        "Page":  20,
+        "Characters":  5636,
+        "Start":  "if target.isna().any(): raise ValueError(\u0027Unknown target\u0027)\r    y = target.to_numpy(dtype=int)\r    trainval, te",
+        "Pictures":  0
+    },
+    {
+        "Page":  21,
+        "Characters":  1038,
+        "Start":  "print(\u0027Finished: \u0027+str(output.resolve()),flush=True)\r\rif __name__ == \u0027__main__\u0027:\r    parser=argparse.ArgumentP",
+        "Pictures":  0
+    }
+]
